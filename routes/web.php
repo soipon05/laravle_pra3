@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/hello', 'HelloController@index')->name('hello');
-Route::get('/hello/other', 'HelloController@other');
-Route::get('/hello/{id}', 'HelloController@index')->where('id', '[0-9]+');
+Route::middleware([HelloMiddleware::class])->group(function () {
+    Route::get('/hello', 'HelloController@index');
+    Route::get('/hello/other', 'HelloController@other');
+});
